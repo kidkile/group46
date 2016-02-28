@@ -38,7 +38,9 @@ function outSentence = preprocess( inSentence, language )
   switch language
    case 'e'
     % TODO: your code here
-
+    %clitics
+    clitics = '(?<=[A-z])''[A-z]';
+    inSentence = regexprep(inSentence,clitics, ' $0');
    case 'f'
     % TODO: your code here
     contractions = '(?<=[A-z])''(?=[A-z])';
