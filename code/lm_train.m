@@ -59,7 +59,7 @@ for iFile=1:length(DD)
             
         % for bigram
         if isfield(LM.uni,words(i))
-            LM.uni.words(i) = LM.uni.words(i)+1'
+            LM.uni.words(i) = LM.uni.words(i)+1;
     % TODO: THE STUDENT IMPLEMENTED THE PRECEDING
   end
 end
