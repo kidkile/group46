@@ -50,7 +50,16 @@ for iFile=1:length(DD)
     
     % TODO: THE STUDENT IMPLEMENTS THE FOLLOWING
     
-
+    for i=1:length(words)
+        % for unigram
+        if isfield(LM.uni, words(i))
+            LM.uni.words(i) = LM.uni.words(i)+1;
+        else
+            LM.uni.words(i) = 1;
+            
+        % for bigram
+        if isfield(LM.uni,words(i))
+            LM.uni.words(i) = LM.uni.words(i)+1;
     % TODO: THE STUDENT IMPLEMENTED THE PRECEDING
   end
 end
