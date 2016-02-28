@@ -44,7 +44,7 @@ function outSentence = preprocess( inSentence, language )
    case 'f'
     % TODO: your code here
     contractions = '(?<=[A-z])''(?=[A-z])';
-    outSentence = regexprep(inSentence, contractions, ' $0 ');
+    outSentence = regexprep(inSentence, contractions, '$0 ');
 
   end
 
