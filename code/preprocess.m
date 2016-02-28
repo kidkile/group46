@@ -40,11 +40,11 @@ function outSentence = preprocess( inSentence, language )
     % TODO: your code here
     %clitics
     clitics = '(?<=[A-z])''[A-z]';
-    inSentence = regexprep(inSentence,clitics, ' $0');
+    outSentence = regexprep(inSentence,clitics, ' $0');
    case 'f'
     % TODO: your code here
     contractions = '(?<=[A-z])''(?=[A-z])';
-    inSentence = regexprep(inSentence, contractions, ' $0 ');
+    outSentence = regexprep(inSentence, contractions, '$0 ');
 
   end
 
