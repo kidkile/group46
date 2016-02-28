@@ -22,7 +22,7 @@ function outSentence = preprocess( inSentence, language )
   % first, convert the input sentence to lower-case and add sentence marks 
   inSentence = [CSC401_A2_DEFNS.SENTSTART ' ' lower( inSentence ) ' ' CSC401_A2_DEFNS.SENTEND];
   
-  math_punc = '[+-=<>]|[:;,\[\]\(\)]';
+  math_punc = '[+-=<>]|[.?!:;,\[\]\(\)]';
   inSentence = regexprep(inSentence, math_punc, ' $0 ');
   
   % trim whitespaces down 
