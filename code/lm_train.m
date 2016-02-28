@@ -59,14 +59,17 @@ for iFile=1:length(DD)
             LM.uni.(field) = 1;
         end  
     end
-     % for bigram
-%     for w = 1:(length(words) - 1)
-%         if isfield(LM.bi.words(w).words(w+1))
-%            LM.bi.words(w).words(w+1) = LM.bi.words(w).words(w+1)+1;
-%         else
-%             LM.bi.words(w).words(w+1) = 1;
-%         end
-%     end
+    
+    % for bigram
+    for w = 2:(length(words) - 1)
+        field = char(words(w));
+        field_next = char(words(w+1));
+        if isfield(LM.bi, field) && isfield(LM.bi.(field), field_next)
+           LM.bi.(field).(field_next) = LM.bi.(field).(field_next) + 1;
+        else
+            LM.bi.(field).(field_next) = 1;
+        end
+    end
     % TODO: THE STUDENT IMPLEMENTED THE PRECEDING
   end
 end
