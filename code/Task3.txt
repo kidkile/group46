@@ -1,24 +1,24 @@
 
 
-language    type    delta   perplexity
+language    type    delta           perplexity
     
-ENGLISH     MLE      0           0.9081
+ENGLISH     MLE      0              0.9081
 
-FRENCH      MLE      0           0.9099
+FRENCH      MLE      0              0.9099
 
-ENGLISH      SMOOTH  0.25        0.9689
+ENGLISH      SMOOTH  0.25           0.9689
 
-ENGLISH      SMOOTH  0.5         0.9763
+ENGLISH      SMOOTH  0.5            0.9763
 
-ENGLISH      SMOOTH  0.75        0.9803
+ENGLISH      SMOOTH  0.75           0.9803
 
-ENGLISH      SMOOTH  1           0.9830
+ENGLISH      SMOOTH  1              0.9830
     
-FRENCH       SMOOTH  0.25	     0.9735
+FRENCH       SMOOTH  0.25	        0.9735
 
-FRENCH       SMOOTH  0.5	     0.9806
+FRENCH       SMOOTH  0.5	        0.9806
 
-FRENCH       SMOOTH  0.75        0.9843
+FRENCH       SMOOTH  0.75           0.9843
 
-FRENCH       SMOOTH  1           0.9867
+FRENCH       SMOOTH  1              0.9867
     
