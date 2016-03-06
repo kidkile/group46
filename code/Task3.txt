@@ -14,9 +14,9 @@ ENGLISH      SMOOTH  0.75        0.9803
 
 ENGLISH      SMOOTH  1           0.9830
     
-FRENCH       SMOOTH  0.25	       0.9735
+FRENCH       SMOOTH  0.25	     0.9735
 
-FRENCH       SMOOTH  0.5	       0.9806
+FRENCH       SMOOTH  0.5	     0.9806
 
 FRENCH       SMOOTH  0.75        0.9843
 
