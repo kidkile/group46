@@ -22,7 +22,7 @@ function outSentence = preprocess( inSentence, language )
   % first, convert the input sentence to lower-case and add sentence marks 
   inSentence = [CSC401_A2_DEFNS.SENTSTART ' ' lower( inSentence ) ' ' CSC401_A2_DEFNS.SENTEND];
   
-  math_punc = '[+-=<>~$%&]|[`''".?!:;,\[\]\(\)]';
+  math_punc = '[+-=<>~$%&]|[".?!:;,\[\]\(\)]+|`+';
   inSentence = regexprep(inSentence, math_punc, ' $0 ');
   
   % trim whitespaces down 
@@ -39,7 +39,7 @@ function outSentence = preprocess( inSentence, language )
    case 'e'
     % TODO: your code here
     %clitics
-    clitics = '(?<=[A-z])''[A-z]';
+    clitics = 'n''t|(?<=[A-z])''[A-z]';
     outSentence = regexprep(inSentence,clitics, ' $0');
    case 'f'
     % TODO: your code here
