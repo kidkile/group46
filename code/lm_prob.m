@@ -54,7 +54,9 @@ function logProb = lm_prob(sentence, LM, type, delta, vocabSize)
       word_prev = words(i-1);
       numerator = bicount(LM, word_prev, word);
       denominator = unicount(LM,word_prev);
-      probability = probability + (numerator / denominator)
+      if numerator == 0  
+          probability = probability + (numerator / denominator)
+      end
   end
   probability
   
