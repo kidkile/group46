@@ -88,7 +88,7 @@ function [eng, fre] = read_hansard(mydir, numSentences)
           eng{count} = strsplit(' ',preprocessed_eng , 'e');
           fre{count} = strsplit(' ',preprocessed_fre , 'f');
           count = count + 1
-          if count == numSentence
+          if count == numSentences
               return
           end
       end
