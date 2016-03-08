@@ -112,14 +112,14 @@ function AM = initialize(eng, fre)
             eng_word = eng_lines{e_word};
             for f_word=1:length(fre_lines)
                 fre_word = fre_lines{f_word};
-                AM.eng_word.fre_word = 1;
+                AM.(eng_word).(fre_word) = 1;
             end
         end
     end
     
     eng_fields = fieldnames(AM);
     for eField=1: length(engfields)
-        fre_fields = fieldnames(AM.(engfields{iField}));
+        fre_fields = fieldnames(AM.(engfields{eField}));
         for fField=1: length(fre_fields)
             AM.(engfields{iField}).(fre_fields{fFile})= 1/length(fre_fields);
         end    
