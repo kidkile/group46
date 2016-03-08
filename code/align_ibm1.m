@@ -116,8 +116,14 @@ function AM = initialize(eng, fre)
             end
         end
     end
-    % given french word, find probability of aligned english word
-    
+    eng_fields = fieldnames(AM);
+    for eField=1: length(engfields)
+        fre_fields = fieldnames(AM.(engfields{iField}))
+        for fField=1: length(fre_fields)
+            AM.(engfields{iField}).(fre_fields{fFile})= 1/length(fre_fields);
+        end    
+    end
+   
     % uniform distribution
 end
 

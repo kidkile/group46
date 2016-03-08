@@ -108,12 +108,20 @@ function AM = initialize(eng, fre)
     for i=1: length(eng)
         eng_lines = eng{i};
         fre_lines = fre{i};
-        for w=1: length(eng_lines)
+        for e_word=1: length(eng_lines)
             eng_word = eng_lines{w}
-            
-            
-    % given french word, find probability of aligned english word
-    
+            for f_word=1:length(fre_lines)
+                fre_word = fre_lines{w}
+                AM.e_word.f_word = 1;
+            end
+        end
+    end
+    eng_fields = fieldnames(AM);
+    for iField=1: length(engfields)
+        eng_fie
+        fre_field = fieldnames(AM.(eng))
+    end
+   
     % uniform distribution
 end
 
