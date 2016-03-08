@@ -116,7 +116,7 @@ function AM = initialize(eng, fre)
             end
         end
     end
-    
+    %pls solve it why there is a red line for eng fields
     eng_fields = fieldnames(AM);
     for eField=1: length(engfields)
         fre_fields = fieldnames(AM.(engfields{eField}));
