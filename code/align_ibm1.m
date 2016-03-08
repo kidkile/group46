@@ -105,7 +105,7 @@ function AM = initialize(eng, fre)
 
     % TODO: your code goes here
     % given english word, find probability of aligned french word
-    for i=1: length(eng)
+   for i=1: length(eng)
         eng_lines = eng{i};
         fre_lines = fre{i};
         for e_word=1: length(eng_lines)
@@ -124,9 +124,7 @@ function AM = initialize(eng, fre)
             AM.(engfields{iField}).(fre_fields{fFile})= 1/length(fre_fields);
         end    
     end
-   
-   
-end
+  end
 
 function t = em_step(t, eng, fre)
 % 
