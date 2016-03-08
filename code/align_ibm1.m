@@ -124,7 +124,7 @@ function AM = initialize(eng, fre)
         end    
     end
    
-    % uniform distribution
+   
 end
 
 function t = em_step(t, eng, fre)
@@ -133,6 +133,7 @@ function t = em_step(t, eng, fre)
 %
   
   % TODO: your code goes here
+  
 end
 
 
