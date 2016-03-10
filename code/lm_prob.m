@@ -55,14 +55,14 @@ function logProb = lm_prob(sentence, LM, type, delta, vocabSize)
       numerator = bicount(LM, word_prev, word);
       denominator = unicount(LM,word_prev);
       if strcmp(type, 'smooth')
-          probability = probability + (numerator + delta)/(denominator + delta * vocabSize);
+          probability = probability + (numerator + delta)/(denominator + (delta * vocabSize));
       else
           if denominator > 0
             probability = probability + (numerator / denominator);
           end
       end
   end
-  logProb = probability;
+  logProb = log2(probability);
   
 return
 
