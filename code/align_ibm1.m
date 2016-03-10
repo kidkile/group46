@@ -49,10 +49,6 @@ function AM = align_ibm1(trainDir, numSentences, maxIter, fn_AM)
 
   end
 
-
-
-
-
 % --------------------------------------------------------------------------------
 % 
 %  Support functions
@@ -115,13 +111,13 @@ function AM = initialize(eng, fre)
             end
         end
     end
-    %pls solve it why there is a red line for eng fields
     eng_fields = fieldnames(AM);
     for eField=1: length(eng_fields)
         fre_fields = fieldnames(AM.(eng_fields{eField}));
         for fField=1: length(fre_fields)
             AM.(eng_fields{eField}).(fre_fields{fField})= 1/length(fre_fields);
         end
+    % force AM.SENTSTART.SENTSTART and AM.SENTEND.SENTEND to be 1
     AM.SENTSTART.SENTSTART = 1;
     AM.SENTEND.SENTEND = 1;
     end
@@ -133,11 +129,60 @@ function t = em_step(t, eng, fre)
 %
   
   % TODO: your code goes here
-  english_words = fieldnames(t)
-  french_words = {}
-  for i=1:length(english_words)
-      french_words = [french_words; fieldnames(t.(english_words{i}))]
+  tcount = struct();
+  total = struct ();
   
+  fe = fieldnames(t);
+  for x = 1:length(fe)
+      ff = fieldnames(t.(fe{x}));
+      for y = 1:length(ff)
+          tcount.(fe{x}).(ff{y}) = 0;
+      end
+  end
+  
+  for i = 1:length(eng)
+      unique_eng = unique(eng{i});
+      unique_fre = unique(fre{i});
+      
+      for j = 1:length(unique_fre)
+          denom_c = 0;
+          freq = sum(strcmp(unique_fre{j}, fre{i}));
+          
+          for k = 1:length(unique_eng)
+              denom_c = denom_c + t.(unique_eng{k}).(unique_fre{j}) * freq; 
+          end
+          
+          for k = 1:length(unique_eng)
+              ffreq = sum(strcmp(unique_fre{j}, fre{i}));
+              efreq = sum(strcmp(unique_eng{j}, eng{i}));
+              
+              if isfield(tcount, unique_eng{k}) & isfield(tcount.(unique_eng{k}), unique_fre{j})
+                  tcount.(unique_eng{k}).(unique_fre{j}) = ...
+                      (tcount.(unique_eng{k}).(unique_fre{j}) +...
+                      t.(unique_eng{k}).(unique_fre{j}) * ffreq * efreq / denom_c);       
+              else
+                  tcount.(unique_eng{k}).(unique_fre{j}) = ...
+                      t.(unique_eng{k}).(unique_fre{j}) * ffreq * efreq / denom_c;
+              end
+              if isfield(total, unique_eng(k))
+                  total.(unique_eng(k)) = total.(unique_eng(k)) +...
+                      (t.(unique_eng{k}).(unique_fre{j}) * ffreq * efreq / denom_c);
+              else
+                  total.(unique_eng(k)) = ...
+                      t.(unique_eng{k}).(unique_fre{j}) * ffreq * efreq / denom_c;
+              end  
+          end
+          
+          
+      end
+  end
+  efields = fieldnames(total);
+  for e = 1:length(efields)
+      ffields = fieldnames(tcount.(efields{e}));
+      for f = 1:length(ffields);
+          t.(efields{e}).(ffields{f}) = tcount.(efields{e}).(ffields{f}) / total.(efields{e});
+      end
+  end
 end
 
 
