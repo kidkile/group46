@@ -18,7 +18,7 @@ FRENCH      SMOOTH  0.5             1.1291
 
 FRENCH      SMOOTH  0.75            1.1482
 
-FRENCH      SMOOTH  0.9             1.575
+FRENCH      SMOOTH  0.9             1.1575
 
 FRENCH      SMOOTH  1               1.1631
 -----------------------------------------------
