@@ -5,11 +5,11 @@
 %  Task 5. 
 
 % some of your definitions
-trainDir     = TODO;
-testDir      = TODO;
-fn_LME       = TODO;
-fn_LMF       = TODO;
-lm_type      = TODO;
+trainDir     = '/u/cs401/A2_SMT/data/Hansard/Training/';
+testDir      = '/u/cs401/A2_SMT/data/Hansard/Testing/';
+fn_LME       = '';
+fn_LMF       = 'trainLM_fr.mat';
+lm_type      = 'smooth';
 delta        = TODO;
 vocabSize    = TODO; 
 numSentences = TODO;
