@@ -156,7 +156,7 @@ function t = em_step(t, eng, fre)
               ffreq = sum(strcmp(unique_fre{j}, fre{i}));
               efreq = sum(strcmp(unique_eng{k}, eng{i}));
               
-              if isfield(tcount, unique_eng{k}) & isfield(tcount.(unique_eng{k}), unique_fre{j})
+              if isfield(tcount, unique_eng{k}) && isfield(tcount.(unique_eng{k}), unique_fre{j})
                   tcount.(unique_eng{k}).(unique_fre{j}) = ...
                       (tcount.(unique_eng{k}).(unique_fre{j}) +...
                       t.(unique_eng{k}).(unique_fre{j}) * ffreq * efreq / denom_c);       
