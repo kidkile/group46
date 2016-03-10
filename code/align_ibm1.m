@@ -95,7 +95,6 @@ function [eng, fre] = read_hansard(mydir, numSentences)
   end
 end
 
-
 function AM = initialize(eng, fre)
 %
 % Initialize alignment model uniformly.
@@ -118,11 +117,13 @@ function AM = initialize(eng, fre)
     end
     %pls solve it why there is a red line for eng fields
     eng_fields = fieldnames(AM);
-    for eField=1: length(engfields)
-        fre_fields = fieldnames(AM.(engfields{eField}));
+    for eField=1: length(eng_fields)
+        fre_fields = fieldnames(AM.(eng_fields{eField}));
         for fField=1: length(fre_fields)
-            AM.(engfields{iField}).(fre_fields{fFile})= 1/length(fre_fields);
+            AM.(eng_fields{eField}).(fre_fields{fField})= 1/length(fre_fields);
         end
+    AM.SENTSTART.SENTSTART = 1;
+    AM.SENTEND.SENTEND = 1;
     end
 end
 
@@ -132,6 +133,10 @@ function t = em_step(t, eng, fre)
 %
   
   % TODO: your code goes here
+  english_words = fieldnames(t)
+  french_words = {}
+  for i=1:length(english_words)
+      french_words = [french_words; fieldnames(t.(english_words{i}))]
   
 end
 
