@@ -8,7 +8,7 @@
 trainDir     = '/u/cs401/A2_SMT/data/Hansard/Training';
 testDir      = '/u/cs401/A2_SMT/data/Hansard/Testing';
 fr_to_trans  = '/u/cs401/A2 SMT/data/Hansard/Testing/Task5.f';
-en_to_trans  = '/u/cs401/A2 SMT/data/Hansard/Testing/Task5.e';
+en_to_trans  = '/u/cs401/A2 SMT/data/Hansard/Testing/Task5.google.e';
 fn_LME       = 'trainLm_en.mat';
 fn_LMF       = 'trainLM_fr.mat';
 lm_type      = 'smooth';
@@ -21,12 +21,12 @@ fn_AM10000 ='alignment10k.mat';
 fn_AM15000 ='alignment15k.mat';
 fn_AM30000 ='alignment30k.mat';
 
-vocabulary = fieldnames(LM.uni);
-vocabSize  = length(vocabulary); 
-
 %Train your language models. This is task 2 which makes use of task 1
 LME = lm_train( trainDir, 'e', fn_LME );
 LMF = lm_train( trainDir, 'f', fn_LMF );
+vocabulary = fieldnames(LME.uni);
+vocabSize  = length(vocabulary); 
+
 
 % Train your alignment model of French, given English 
 AME_25 = align_ibm1(trainDir, 25, maxIter, fn_AM25);
@@ -45,8 +45,8 @@ fre_sentence = 'fre_sentence';
 %       You can probably reuse your previous code for this  
 for i=1:len_fsent
     fre = (preprocess(sentence_e{i}, 'e'));
-    %decoding
-    for w=[1000,10000,15000,30000]
+    % Decode the test sentence 'fre'
+    for w=[25,1000,10000,15000,30000]
         prosd_f = preprocess(char(trans_f(w)), 'f');
         Am_f = strcat('AME_',num2str(w));
         strcat(eng_sentence,num2str(w)) = decode(prosd_f, LME, Am_f, '', delta, vocabSize);
@@ -55,13 +55,14 @@ for i=1:len_fsent
 end
 
     
-% Decode the test sentence 'fre'
-eng = decode( fre, LME, AMFE, 'smooth', delta, vocabSize );
-
 % TODO: perform some analysis
 % add BlueMix code here 
-url = '';
-username = '';
-password = '';
+url= 'https://gateway.watsonplatform.net/natural-language-classifier/api';
+username = '3f62ff98-509d-467d-a5ca-533c09f01006';
+password='khkH2uh5O6J6';
+curl = ['curl -u ' username ':' password ' -X POST -F "text=' fLines{l} '" -F "source=fr" -F "target=en" ' url];
+
+
+
 
 [status, result] = unix('')
