@@ -19,7 +19,7 @@ fn_AM ='alignment.mat';
 vocabulary = fieldnames(LM.uni);
 vocabSize  = length(vocabulary); 
 
-% Train your language models. This is task 2 which makes use of task 1
+%Train your language models. This is task 2 which makes use of task 1
 LME = lm_train( trainDir, 'e', fn_LME );
 LMF = lm_train( trainDir, 'f', fn_LMF );
 
