@@ -47,7 +47,7 @@ for i=1:len_fsent
     fre = (preprocess(sentence_e{i}, 'e'));
     %decoding
     for w=[1000,10000,15000,30000]
-        prosd_f = preprocess(char(trans_f(i)), 'f');
+        prosd_f = preprocess(char(trans_f(w)), 'f');
         Am_f = strcat('AME_',num2str(w));
         strcat(eng_sentence,num2str(w)) = decode(prosd_f, LME, Am_f, '', delta, vocabSize);
     end
