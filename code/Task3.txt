@@ -1,3 +1,6 @@
+Result Analysis:
+From the data list below, we can see delta is increasing slowly with the smoothly increasing of value of perplexity in type of smooth. In MLE, the accuracy is very high in both english and french language model. which shows the measure of language model performance based on average probability can be developed within the field of information theory.
+
 
 
 language    type    delta           perplexity
