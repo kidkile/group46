@@ -62,7 +62,4 @@ username = '3f62ff98-509d-467d-a5ca-533c09f01006';
 password='khkH2uh5O6J6';
 curl = ['curl -u ' username ':' password ' -X POST -F "text=' fLines{l} '" -F "source=fr" -F "target=en" ' url];
 
-
-
-
-[status, result] = unix('')
+[status, result] = unix(curl)
