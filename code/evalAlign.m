@@ -5,15 +5,15 @@
 %  Task 5. 
 
 % some of your definitions
-trainDir     = '/Users/tarang/Documents/CSC401/group46/data/Hansard/Training';
-testDir      = '/Users/tarang/Documents/CSC401/group46/data/Hansard/Testing';
-fr_file      = '/Users/tarang/Documents/CSC401/group46/data/Hansard/Testing/Task5.f';
-en_file      = '/Users/tarang/Documents/CSC401/group46/data/Hansard/Testing/Task5.e';
-goog_en_file = '/Users/tarang/Documents/CSC401/group46/data/Hansard/Testing/Task5.google.e';
+trainDir     = '/h/u17/g5/00/g4marath/Desktop/group46/data/Hansard/Training';
+testDir      = '/h/u17/g5/00/g4marath/Desktop/group46/data/Hansard/Testing';
+fr_file      = '/h/u17/g5/00/g4marath/Desktop/group46/data/Hansard/Testing/Task5.f';
+en_file      = '/h/u17/g5/00/g4marath/Desktop/group46/data/Hansard/Testing/Task5.e';
+goog_en_file = '/h/u17/g5/00/g4marath/Desktop/group46/data/Hansard/Testing/Task5.google.e';
 fn_LME       = 'trainLM_en.mat';
 fn_LMF       = 'trainLM_fr.mat';
 lm_type      = 'smooth';
-delta        = 0.01; 
+delta        = 0.001; 
 
 numSentences = 10;
 maxIter      = 10;
@@ -37,6 +37,7 @@ end
 vocabSize    = length(fieldnames(LME.uni));
 
 % Train your alignment model of French, given English
+
 % UNCOMMENT BEFORE SUBMITTING
 AM_files = {'alignment1K.mat', 'alignment10K.mat', 'alignment15K.mat', 'alignment30K.mat'}
 count = 0;
@@ -76,10 +77,10 @@ goog_en_text = textread(goog_en_file, '%s', 'delimiter', '\n');
 [trans1K, trans10K, trans15K, trans30K] = deal({});
 for i = 1:length(fr_text)
     fre_sent = preprocess(fr_text{i}, 'f');
-    sent_trans1K = decode(fre_sent, LME, AM_1000, lm_type, delta, vocabSize);
-    sent_trans10K = decode(fre_sent, LME, AM_10000, lm_type, delta, vocabSize);
-    sent_trans15K = decode(fre_sent, LME, AM_15000, lm_type, delta, vocabSize);
-    sent_trans30K = decode(fre_sent, LME, AM_30000, lm_type, delta, vocabSize);
+    sent_trans1K = decode(fre_sent, LME, AME_1000, lm_type, delta, vocabSize);
+    sent_trans10K = decode(fre_sent, LME, AME_10000, lm_type, delta, vocabSize);
+    sent_trans15K = decode(fre_sent, LME, AME_15000, lm_type, delta, vocabSize);
+    sent_trans30K = decode(fre_sent, LME, AME_30000, lm_type, delta, vocabSize);
     
     trans1K = [trans1K; strjoin(sent_trans1K, ' ')];
     trans10K = [trans10K; strjoin(sent_trans1oK, ' ')];
@@ -95,5 +96,10 @@ username = '3f62ff98-509d-467d-a5ca-533c09f01006';
 password='khkH2uh5O6J6';
 curl = ['curl -u ' username ':' password ' -X POST -F "text=' fLines{l} '" -F "source=fr" -F "target=en" ' url];
 
+% 
+% [status, result] = unix(curl)l-language-classifier/api';
+% username = '3f62ff98-509d-467d-a5ca-533c09f01006';
+% password='khkH2uh5O6J6';
+% curl = ['curl -u ' username ':' password ' -X POST -F "text=' fLines{l} '" -F "source=fr" -F "target=en" ' url];
 % 
 % [status, result] = unix(curl)
