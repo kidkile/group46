@@ -12,8 +12,8 @@ en_file      = '/Users/tarang/Documents/CSC401/group46/data/Hansard/Testing/Task
 goog_en_file = '/Users/tarang/Documents/CSC401/group46/data/Hansard/Testing/Task5.google.e';
 fn_LME       = 'trainLM_en.mat';
 fn_LMF       = 'trainLM_fr.mat';
-lm_type      = '';
-delta        = 0.5; 
+lm_type      = 'smooth';
+delta        = 0.01; 
 
 numSentences = 10;
 maxIter      = 10;
@@ -90,9 +90,10 @@ end
     
 % TODO: perform some analysis
 % add BlueMix code here 
-% url= 'https://gateway.watsonplatform.net/natural-language-classifier/api';
-% username = '3f62ff98-509d-467d-a5ca-533c09f01006';
-% password='khkH2uh5O6J6';
-% curl = ['curl -u ' username ':' password ' -X POST -F "text=' fLines{l} '" -F "source=fr" -F "target=en" ' url];
+url= 'https://gateway.watsonplatform.net/natural-language-classifier/api';
+username = '3f62ff98-509d-467d-a5ca-533c09f01006';
+password='khkH2uh5O6J6';
+curl = ['curl -u ' username ':' password ' -X POST -F "text=' fLines{l} '" -F "source=fr" -F "target=en" ' url];
+
 % 
 % [status, result] = unix(curl)
