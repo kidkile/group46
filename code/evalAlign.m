@@ -67,10 +67,9 @@ fr_text = textread(fr_file, '%s', 'delimiter', '\n');
 en_text = textread(en_file, '%s', 'delimiter', '\n');
 goog_en_text = textread(goog_en_file, '%s', 'delimiter', '\n');
 
-TODO: a bit more work to grab the English and French sentences. 
-      You can probably reuse your previous code for this 
-
-For testing purposes, use this premade AM
+%TODO: a bit more work to grab the English and French sentences. 
+% You can probably reuse your previous code for this 
+% For testing purposes, use this premade AM
 AM_test = load('alignment30k.mat');
 AM_test = AM_test.AM;
 
