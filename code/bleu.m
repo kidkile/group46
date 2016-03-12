@@ -1,13 +1,12 @@
-function bleu_score = bleu(candidate, reference)
-    sum = 0;
+function bleu_score = bleu(candidate, ref)
+    total = 0;
     for i = 1:length(candidate)
-        local_count = sum(strcmp(candidate, candidate{i}));
-        max_count = sum(strcmp(reference, candidate{i}));
-        sum = sum + min(local_count, max_count);
-        
+        count = sum(strcmp(candidate, candidate{i}));
+        cap = length(strfind(ref, candidate{i}));
+        total = total + min(count, cap);
     end
     
-    precision = contained / length(candidate) / length(candidate);
+    precision = total / length(candidate);
     
     
     

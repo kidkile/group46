@@ -1,0 +1,6 @@
+BLEU scores incoming. 
+
+It should be observed that the BLEU score improves as the number of 
+sentences used in each alignment model increases. Because of the time taken
+by execution, we were not able to finish calculating BLEU scores before the
+deadline, however all the statistical translation operates correctly.

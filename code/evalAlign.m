@@ -5,11 +5,11 @@
 %  Task 5. 
 
 % some of your definitions
-trainDir     = '/h/u17/g5/00/g4marath/Desktop/group46/data/Hansard/Training';
-testDir      = '/h/u17/g5/00/g4marath/Desktop/group46/data/Hansard/Testing';
-fr_file      = '/h/u17/g5/00/g4marath/Desktop/group46/data/Hansard/Testing/Task5.f';
-en_file      = '/h/u17/g5/00/g4marath/Desktop/group46/data/Hansard/Testing/Task5.e';
-goog_en_file = '/h/u17/g5/00/g4marath/Desktop/group46/data/Hansard/Testing/Task5.google.e';
+trainDir     = '/Users/tarang/Documents/CSC401/group46/data/Hansard/Training';
+testDir      = '/Users/tarang/Documents/CSC401/group46/data/Hansard/Testing';
+fr_file      = '/Users/tarang/Documents/CSC401/group46/data/Hansard/Testing/Task5.f';
+en_file      = '/Users/tarang/Documents/CSC401/group46/data/Hansard/Testing/Task5.e';
+goog_en_file = '/Users/tarang/Documents/CSC401/group46/data/Hansard/Testing/Task5.google.e';
 fn_LME       = 'trainLM_en.mat';
 fn_LMF       = 'trainLM_fr.mat';
 lm_type      = 'smooth';
@@ -39,7 +39,7 @@ vocabSize    = length(fieldnames(LME.uni));
 % Train your alignment model of French, given English
 
 % UNCOMMENT BEFORE SUBMITTING
-AM_files = {'alignment1K.mat', 'alignment10K.mat', 'alignment15K.mat', 'alignment30K.mat'}
+AM_files = {'alignment1K.mat', 'alignment10K.mat', 'alignment15K.mat', 'alignment30K.mat'};
 count = 0;
 for i = 1:length(AM_files)
     count = count + exist(AM_files{i}, 'file');
@@ -62,17 +62,17 @@ else
     AME_15000 = align_ibm1(trainDir, 15000, maxIter, 'alignment15k.mat');
     AME_30000 = align_ibm1(trainDir, 30000, maxIter, 'alignment30k.mat');
 end
-
+disp('All AMs loaded')
 fr_text = textread(fr_file, '%s', 'delimiter', '\n');
 en_text = textread(en_file, '%s', 'delimiter', '\n');
 goog_en_text = textread(goog_en_file, '%s', 'delimiter', '\n');
 
-% TODO: a bit more work to grab the English and French sentences. 
-%       You can probably reuse your previous code for this 
+TODO: a bit more work to grab the English and French sentences. 
+      You can probably reuse your previous code for this 
 
-% For testing purposes, use this premade AM
-% AM_test = load('alignment30k.mat');
-% AM_test = AM_test.AM;
+For testing purposes, use this premade AM
+AM_test = load('alignment30k.mat');
+AM_test = AM_test.AM;
 
 [trans1K, trans10K, trans15K, trans30K] = deal({});
 for i = 1:length(fr_text)
@@ -83,7 +83,7 @@ for i = 1:length(fr_text)
     sent_trans30K = decode(fre_sent, LME, AME_30000, lm_type, delta, vocabSize);
     
     trans1K = [trans1K; strjoin(sent_trans1K, ' ')];
-    trans10K = [trans10K; strjoin(sent_trans1oK, ' ')];
+    trans10K = [trans10K; strjoin(sent_trans10K, ' ')];
     trans15K = [trans15K; strjoin(sent_trans15K, ' ')];
     trans30K = [trans30K; strjoin(sent_trans30K, ' ')];
 end
@@ -94,10 +94,18 @@ end
 url = 'https://gateway.watsonplatform.net/language-translation/api/v2/translate';
 username = '7a759335-d327-41fb-ba35-57464cc84f67';
 password='Vz4JICAyT5iq';
-curl = ['curl -u ' username ':' password...
+
+watson_translation = {};
+for i = 1:length(fr_text)
+    sentence_in = fr_text{i};
+    curl = ['curl -u ' username ':' password...
         ' -X POST'...
-        ' -F "text=' fre_sent '"'...
+        ' -F "text=' sentence_in '"'...
         ' -F "source=fr" -F "target=en" '...
         '"' url '"'];
 
-[status, result] = unix(curl)
+    [status, sentence_out] = unix(curl);
+    watson_translation = [watson_translation; sentence_out];
+    
+end
+
