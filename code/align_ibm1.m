@@ -35,7 +35,7 @@ function AM = align_ibm1(trainDir, numSentences, maxIter, fn_AM)
   
   % Read in the training data
   [eng, fre] = read_hansard(trainDir, numSentences);
-
+  
   % Initialize AM uniformly 
   AM = initialize(eng, fre);
 
@@ -141,8 +141,9 @@ function t = em_step(t, eng, fre)
   end
   
   for i = 1:length(eng)
-      unique_eng = unique(eng{i});
-      unique_fre = unique(fre{i});
+      % remove sentstart and end
+      unique_eng = setdiff(unique(eng{i}), {'SENTSTART', 'SENTEND'});
+      unique_fre = setdiff(unique(fre{i}), {'SENTSTART', 'SENTEND'});
       
       for j = 1:length(unique_fre)
           denom_c = 0;
