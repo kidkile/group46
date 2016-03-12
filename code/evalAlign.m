@@ -5,61 +5,62 @@
 %  Task 5. 
 
 % some of your definitions
-trainDir     = '/u/cs401/A2_SMT/data/Hansard/Training';
-testDir      = '/u/cs401/A2_SMT/data/Hansard/Testing';
-fr_to_trans  = '/u/cs401/A2 SMT/data/Hansard/Testing/Task5.f';
-en_to_trans  = '/u/cs401/A2 SMT/data/Hansard/Testing/Task5.google.e';
-fn_LME       = 'trainLm_en.mat';
+trainDir     = '/Users/tarang/Documents/CSC401/group46/data/Hansard/Training';
+testDir      = '/Users/tarang/Documents/CSC401/group46/data/Hansard/Testing';
+fr_file      = '/Users/tarang/Documents/CSC401/group46/data/Hansard/Testing/Task5.f';
+en_file      = '/Users/tarang/Documents/CSC401/group46/data/Hansard/Testing/Task5.e';
+goog_en_file = '/Users/tarang/Documents/CSC401/group46/data/Hansard/Testing/Task5.google.e';
+fn_LME       = 'trainLM_en.mat';
 fn_LMF       = 'trainLM_fr.mat';
-lm_type      = 'smooth';
-delta        = 0.5;
+lm_type      = '';
+delta        = 0.5; 
+
 numSentences = 10;
-maxIter = 100;
-fn_AM25 = 'alignment25.mat';
-fn_AM1000 ='alignment1k.mat';
-fn_AM10000 ='alignment10k.mat';
-fn_AM15000 ='alignment15k.mat';
-fn_AM30000 ='alignment30k.mat';
+maxIter      = 10;
 
 %Train your language models. This is task 2 which makes use of task 1
-LME = lm_train( trainDir, 'e', fn_LME );
-LMF = lm_train( trainDir, 'f', fn_LMF );
-vocabulary = fieldnames(LME.uni);
-vocabSize  = length(vocabulary); 
+% if the LM models are already available in the folder, we don't need to
+% retrain
+if exist(fn_LME, 'file') == 2
+    LME = load(fn_LME);
+    LME = LME.LM;
+else
+    LME = lm_train( trainDir, 'e', fn_LME );
+end
+if exist(fn_LMF, 'file') == 2
+    LMF = load(fn_LMF);
+    LMF = LMF.LM;
+else
+    LMF = lm_train( trainDir, 'f', fn_LMF );
+end
 
+vocabSize    = length(fieldnames(LME.uni));
 
-% Train your alignment model of French, given English 
-AME_25 = align_ibm1(trainDir, 25, maxIter, fn_AM25);
-AME_1000 = align_ibm1(trainDir, 1000, maxIter, fn_AM1000);
-AME_100000 = align_ibm1(trainDir, 10000, maxIter, fn_AM10000);
-AME_15000 = align_ibm1(trainDir, 15000, maxIter, fn_AM15000);
-AME_30000 = align_ibm1(trainDir, 30000, maxIter, fn_AM30000);
-% ... TODO: more 
-trans_e = textread(en_to_trans, '%s', 'delimiter', '\n');
-trans_f = textread(fr_to_trans, '%s', 'delimiter', '\n');
-len_esent = length(trans_e);
-len_fsent = length(trans_f);
-eng_sentence = 'eng_sentence';
-fre_sentence = 'fre_sentence';
+% Train your alignment model of French, given English
+% UNCOMMENT BEFORE SUBMITTING        
+% AME_25 = align_ibm1(trainDir, 25, maxIter, 'alignment25.mat');
+% AME_1000 = align_ibm1(trainDir, 1000, maxIter, 'alignment1k.mat');
+% AME_100000 = align_ibm1(trainDir, 10000, maxIter, 'alignment10k.mat');
+% AME_15000 = align_ibm1(trainDir, 15000, maxIter, 'alignment15k.mat');
+% AME_30000 = align_ibm1(trainDir, 30000, maxIter, 'alignment30k.mat');
+
+fr_text = textread(fr_file, '%s', 'delimiter', '\n');
+en_text = textread(en_file, '%s', 'delimiter', '\n');
+goog_en_text = textread(goog_en_file, '%s', 'delimiter', '\n');
+
 % TODO: a bit more work to grab the English and French sentences. 
 %       You can probably reuse your previous code for this  
-for i=1:len_fsent
-    fre = (preprocess(sentence_e{i}, 'e'));
-    % Decode the test sentence 'fre'
-    for w=[25,1000,10000,15000,30000]
-        prosd_f = preprocess(char(trans_f(w)), 'f');
-        Am_f = strcat('AME_',num2str(w));
-        strcat(eng_sentence,num2str(w)) = decode(prosd_f, LME, Am_f, '', delta, vocabSize);
-    end
-    
+for i = 1:length(fr_text)
+    fre_sent = preprocess(fr_text{i}, 'f');
+    english_trans = decode(fre_sent, LME, AM, lm_type, delta, vocabSize);
 end
 
     
 % TODO: perform some analysis
 % add BlueMix code here 
-url= 'https://gateway.watsonplatform.net/natural-language-classifier/api';
-username = '3f62ff98-509d-467d-a5ca-533c09f01006';
-password='khkH2uh5O6J6';
-curl = ['curl -u ' username ':' password ' -X POST -F "text=' fLines{l} '" -F "source=fr" -F "target=en" ' url];
-
-[status, result] = unix(curl)
+% url= 'https://gateway.watsonplatform.net/natural-language-classifier/api';
+% username = '3f62ff98-509d-467d-a5ca-533c09f01006';
+% password='khkH2uh5O6J6';
+% curl = ['curl -u ' username ':' password ' -X POST -F "text=' fLines{l} '" -F "source=fr" -F "target=en" ' url];
+% 
+% [status, result] = unix(curl)
