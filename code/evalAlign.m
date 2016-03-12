@@ -49,10 +49,24 @@ en_text = textread(en_file, '%s', 'delimiter', '\n');
 goog_en_text = textread(goog_en_file, '%s', 'delimiter', '\n');
 
 % TODO: a bit more work to grab the English and French sentences. 
-%       You can probably reuse your previous code for this  
+%       You can probably reuse your previous code for this 
+
+% For testing purposes, use this premade AM
+% AM_test = load('alignment30k.mat');
+% AM_test = AM_test.AM;
+
+[trans1K, trans10K, trans15K, trans30K] = deal({});
 for i = 1:length(fr_text)
     fre_sent = preprocess(fr_text{i}, 'f');
-    english_trans = decode(fre_sent, LME, AM, lm_type, delta, vocabSize);
+    sent_trans1K = decode(fre_sent, LME, AM_1000, lm_type, delta, vocabSize);
+    sent_trans10K = decode(fre_sent, LME, AM_10000, lm_type, delta, vocabSize);
+    sent_trans15K = decode(fre_sent, LME, AM_15000, lm_type, delta, vocabSize);
+    sent_trans30K = decode(fre_sent, LME, AM_30000, lm_type, delta, vocabSize);
+    
+    trans1K = [trans1K; strjoin(sent_trans1K, ' ')];
+    trans10K = [trans10K; strjoin(sent_trans1oK, ' ')];
+    trans15K = [trans15K; strjoin(sent_trans15K, ' ')];
+    trans30K = [trans30K; strjoin(sent_trans30K, ' ')];
 end
 
     
