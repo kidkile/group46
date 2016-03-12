@@ -5,15 +5,15 @@
 %  Task 5. 
 
 % some of your definitions
-trainDir     = '/Users/tarang/Documents/CSC401/group46/data/Hansard/Training';
-testDir      = '/Users/tarang/Documents/CSC401/group46/data/Hansard/Testing';
-fr_file      = '/Users/tarang/Documents/CSC401/group46/data/Hansard/Testing/Task5.f';
-en_file      = '/Users/tarang/Documents/CSC401/group46/data/Hansard/Testing/Task5.e';
-goog_en_file = '/Users/tarang/Documents/CSC401/group46/data/Hansard/Testing/Task5.google.e';
+trainDir     = '/h/u17/g5/00/g4marath/Desktop/group46/data/Hansard/Training';
+testDir      = '/h/u17/g5/00/g4marath/Desktop/group46/data/Hansard/Testing';
+fr_file      = '/h/u17/g5/00/g4marath/Desktop/group46/data/Hansard/Testing/Task5.f';
+en_file      = '/h/u17/g5/00/g4marath/Desktop/group46/data/Hansard/Testing/Task5.e';
+goog_en_file = '/h/u17/g5/00/g4marath/Desktop/group46/data/Hansard/Testing/Task5.google.e';
 fn_LME       = 'trainLM_en.mat';
 fn_LMF       = 'trainLM_fr.mat';
-lm_type      = '';
-delta        = 0.5; 
+lm_type      = 'smooth';
+delta        = 0.001; 
 
 numSentences = 10;
 maxIter      = 10;
@@ -38,11 +38,11 @@ vocabSize    = length(fieldnames(LME.uni));
 
 % Train your alignment model of French, given English
 % UNCOMMENT BEFORE SUBMITTING        
-% AME_25 = align_ibm1(trainDir, 25, maxIter, 'alignment25.mat');
-% AME_1000 = align_ibm1(trainDir, 1000, maxIter, 'alignment1k.mat');
-% AME_100000 = align_ibm1(trainDir, 10000, maxIter, 'alignment10k.mat');
-% AME_15000 = align_ibm1(trainDir, 15000, maxIter, 'alignment15k.mat');
-% AME_30000 = align_ibm1(trainDir, 30000, maxIter, 'alignment30k.mat');
+AME_25 = align_ibm1(trainDir, 25, maxIter, 'alignment25.mat');
+AME_1000 = align_ibm1(trainDir, 1000, maxIter, 'alignment1k.mat');
+AME_100000 = align_ibm1(trainDir, 10000, maxIter, 'alignment10k.mat');
+AME_15000 = align_ibm1(trainDir, 15000, maxIter, 'alignment15k.mat');
+AME_30000 = align_ibm1(trainDir, 30000, maxIter, 'alignment30k.mat');
 
 fr_text = textread(fr_file, '%s', 'delimiter', '\n');
 en_text = textread(en_file, '%s', 'delimiter', '\n');
@@ -58,10 +58,10 @@ goog_en_text = textread(goog_en_file, '%s', 'delimiter', '\n');
 [trans1K, trans10K, trans15K, trans30K] = deal({});
 for i = 1:length(fr_text)
     fre_sent = preprocess(fr_text{i}, 'f');
-    sent_trans1K = decode(fre_sent, LME, AM_1000, lm_type, delta, vocabSize);
-    sent_trans10K = decode(fre_sent, LME, AM_10000, lm_type, delta, vocabSize);
-    sent_trans15K = decode(fre_sent, LME, AM_15000, lm_type, delta, vocabSize);
-    sent_trans30K = decode(fre_sent, LME, AM_30000, lm_type, delta, vocabSize);
+    sent_trans1K = decode(fre_sent, LME, AME_1000, lm_type, delta, vocabSize);
+    sent_trans10K = decode(fre_sent, LME, AME_10000, lm_type, delta, vocabSize);
+    sent_trans15K = decode(fre_sent, LME, AME_15000, lm_type, delta, vocabSize);
+    sent_trans30K = decode(fre_sent, LME, AME_30000, lm_type, delta, vocabSize);
     
     trans1K = [trans1K; strjoin(sent_trans1K, ' ')];
     trans10K = [trans10K; strjoin(sent_trans1oK, ' ')];
@@ -73,6 +73,11 @@ end
 % TODO: perform some analysis
 % add BlueMix code here 
 % url= 'https://gateway.watsonplatform.net/natural-language-classifier/api';
+% username = '3f62ff98-509d-467d-a5ca-533c09f01006';
+% password='khkH2uh5O6J6';
+% curl = ['curl -u ' username ':' password ' -X POST -F "text=' fLines{l} '" -F "source=fr" -F "target=en" ' url];
+% 
+% [status, result] = unix(curl)l-language-classifier/api';
 % username = '3f62ff98-509d-467d-a5ca-533c09f01006';
 % password='khkH2uh5O6J6';
 % curl = ['curl -u ' username ':' password ' -X POST -F "text=' fLines{l} '" -F "source=fr" -F "target=en" ' url];
