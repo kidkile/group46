@@ -91,15 +91,13 @@ end
     
 % TODO: perform some analysis
 % add BlueMix code here 
-url= 'https://gateway.watsonplatform.net/natural-language-classifier/api';
-username = '3f62ff98-509d-467d-a5ca-533c09f01006';
-password='khkH2uh5O6J6';
-curl = ['curl -u ' username ':' password ' -X POST -F "text=' fLines{l} '" -F "source=fr" -F "target=en" ' url];
+url = 'https://gateway.watsonplatform.net/language-translation/api/v2/translate';
+username = '7a759335-d327-41fb-ba35-57464cc84f67';
+password='Vz4JICAyT5iq';
+curl = ['curl -u ' username ':' password...
+        ' -X POST'...
+        ' -F "text=' fre_sent '"'...
+        ' -F "source=fr" -F "target=en" '...
+        '"' url '"'];
 
-% 
-% [status, result] = unix(curl)l-language-classifier/api';
-% username = '3f62ff98-509d-467d-a5ca-533c09f01006';
-% password='khkH2uh5O6J6';
-% curl = ['curl -u ' username ':' password ' -X POST -F "text=' fLines{l} '" -F "source=fr" -F "target=en" ' url];
-% 
-% [status, result] = unix(curl)
+[status, result] = unix(curl)
