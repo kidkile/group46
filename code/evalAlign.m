@@ -37,12 +37,31 @@ end
 vocabSize    = length(fieldnames(LME.uni));
 
 % Train your alignment model of French, given English
-% UNCOMMENT BEFORE SUBMITTING        
-AME_25 = align_ibm1(trainDir, 25, maxIter, 'alignment25.mat');
-AME_1000 = align_ibm1(trainDir, 1000, maxIter, 'alignment1k.mat');
-AME_100000 = align_ibm1(trainDir, 10000, maxIter, 'alignment10k.mat');
-AME_15000 = align_ibm1(trainDir, 15000, maxIter, 'alignment15k.mat');
-AME_30000 = align_ibm1(trainDir, 30000, maxIter, 'alignment30k.mat');
+
+% UNCOMMENT BEFORE SUBMITTING
+AM_files = {'alignment1K.mat', 'alignment10K.mat', 'alignment15K.mat', 'alignment30K.mat'}
+count = 0;
+for i = 1:length(AM_files)
+    count = count + exist(AM_files{i}, 'file');
+end
+if count == 2 * length(AM_files)
+    AME_1000 = load('alignment1k.mat');
+    AME_1000 = AME_1000.AM;
+    
+    AME_10000 = load('alignment10k.mat');
+    AME_10000 = AME_10000.AM;
+    
+    AME_15000 = load('alignment15k.mat');
+    AME_15000 = AME_15000.AM;
+    
+    AME_30000 = load('alignment30k.mat');
+    AME_30000 = AME_30000.AM;
+else
+    AME_1000 = align_ibm1(trainDir, 1000, maxIter, 'alignment1k.mat');
+    AME_10000 = align_ibm1(trainDir, 10000, maxIter, 'alignment10k.mat');
+    AME_15000 = align_ibm1(trainDir, 15000, maxIter, 'alignment15k.mat');
+    AME_30000 = align_ibm1(trainDir, 30000, maxIter, 'alignment30k.mat');
+end
 
 fr_text = textread(fr_file, '%s', 'delimiter', '\n');
 en_text = textread(en_file, '%s', 'delimiter', '\n');
